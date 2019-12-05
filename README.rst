@@ -22,6 +22,8 @@ Characters
 
 ``characters`` takes a string and breaks it down to a list of NFD code points represented by ``Character`` instances.
 
+Each ``Character`` has a ``string`` representation, ``code``, ``u_code``, ``name``, ``category``, and ``combining`` class on it.
+
 >>> character_list = characters("ὁ λόγος")
 
 >>> for character in character_list:
@@ -41,6 +43,8 @@ Grapheme Clusters
 
 ``grapheme_clusters`` takes a list of ``Character`` instances and groups them into a list of ``GraphemeCluster`` instances.
 
+Each ``GraphemeCluster`` has a ``string`` representation, a ``base`` Character and a list of ``modifiers``.
+
 >>> grapheme_cluster_list = grapheme_clusters(character_list)
 >>> for grapheme_cluster in grapheme_cluster_list:
 ...     print(grapheme_cluster)
@@ -51,6 +55,8 @@ GraphemeCluster(string='ό', base=Character(string='ο', code=959, u_code='U+03B
 GraphemeCluster(string='γ', base=Character(string='γ', code=947, u_code='U+03B3', name='GREEK SMALL LETTER GAMMA', category='Ll', combining=0), modifiers=[])
 GraphemeCluster(string='ο', base=Character(string='ο', code=959, u_code='U+03BF', name='GREEK SMALL LETTER OMICRON', category='Ll', combining=0), modifiers=[])
 GraphemeCluster(string='ς', base=Character(string='ς', code=962, u_code='U+03C2', name='GREEK SMALL LETTER FINAL SIGMA', category='Ll', combining=0), modifiers=[])
+
+I haven't implemented this but extracting (or adding) diacritics could now be done through methods on ``GraphemeCluster`` rather than Python string hacking.
 
 Tokens
 ------
