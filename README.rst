@@ -93,9 +93,14 @@ Syllabification
 
 **NOTE**: the results of syllabification should be put on a dataclass instance but because the ``syllabify`` function is Greek-specific, we'd have to work out how to dispatch it properly.
 
+We can fake it for now with:
+
+>>> first_word = tokens_to_syllabify[0]
+>>> first_word.syllables = syllabify(first_word)
+
 ``syllabify`` is actually returning a list of ``Syllable`` instances which have ``GraphemeCluster`` lists for each of ``onset``, ``nucleus``, and ``coda``:
 
->>> for syllable in syllabify(tokens_to_syllabify[0]):
+>>> for syllable in first_word.syllables:
 ...     print(
 ...         syllable.string,
 ...         [cluster.string for cluster in syllable.onset],
@@ -106,7 +111,20 @@ Syllabification
 ναι ['ν'] ['α', 'ι'] []
 κός ['κ'] ['ό'] ['ς']
 
-You can also run syllabify in DEBUG mode:
+But because of the rich datastructure, you can do things like:
+
+>>> first_word.syllables[2].string
+'κός'
+
+>>> first_word.syllables[2].nucleus
+[GraphemeCluster(string='ό', base=Character(string='ο', code=959, u_code='U+03BF', name='GREEK SMALL LETTER OMICRON', category='Ll', combining=0), modifiers=[Character(string='́', code=769, u_code='U+0301', name='COMBINING ACUTE ACCENT', category='Mn', combining=230)])]
+
+>>> first_word.syllables[2].nucleus[0].base.name
+'GREEK SMALL LETTER OMICRON'
+
+**NOTE**: I wonder if we need a custom type for ``List[GraphemeCluster]`` so we can do things like ``.nucleus.string``.
+
+You can run syllabify in DEBUG mode:
 
 >>> syllabify(tokens_to_syllabify[0], DEBUG=True)
 syllabifying: γυναικός
