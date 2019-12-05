@@ -1,4 +1,5 @@
-# Segments Prototype
+Segments Prototype
+==================
 
 This is an idea I've had for years but finally playing around with it using dataclasses (and type annotation).
 
@@ -16,7 +17,8 @@ It's still very much a work in progress and I've only just started.
 >>> from syllabification import syllabify
 
 
-## Characters
+Characters
+----------
 
 ``characters`` takes a string and breaks it down to a list of NFD code points represented by ``Character`` instances.
 
@@ -34,7 +36,8 @@ Character(string='γ', code=947, u_code='U+03B3', name='GREEK SMALL LETTER GAMMA
 Character(string='ο', code=959, u_code='U+03BF', name='GREEK SMALL LETTER OMICRON', category='Ll', combining=0)
 Character(string='ς', code=962, u_code='U+03C2', name='GREEK SMALL LETTER FINAL SIGMA', category='Ll', combining=0)
 
-## Grapheme Clusters
+Grapheme Clusters
+-----------------
 
 ``grapheme_clusters`` takes a list of ``Character`` instances and groups them into a list of ``GraphemeCluster`` instances.
 
@@ -49,7 +52,8 @@ GraphemeCluster(string='γ', base=Character(string='γ', code=947, u_code='U+03B
 GraphemeCluster(string='ο', base=Character(string='ο', code=959, u_code='U+03BF', name='GREEK SMALL LETTER OMICRON', category='Ll', combining=0), modifiers=[])
 GraphemeCluster(string='ς', base=Character(string='ς', code=962, u_code='U+03C2', name='GREEK SMALL LETTER FINAL SIGMA', category='Ll', combining=0), modifiers=[])
 
-## Tokens
+Tokens
+------
 
 ``tokens`` takes a list of ``GraphemeCluster`` instances and groups them into a list of ``Token`` instances of which ``WordToken`` is a subclass used if the token is a word.
 
@@ -62,7 +66,8 @@ GraphemeCluster(string='ς', base=Character(string='ς', code=962, u_code='U+03C
 
 To simplify the display above, I just show the grapheme cluster strings but they are actually full ``GraphemeCluster`` instances.
 
-## Syllabification
+Syllabification
+---------------
 
 >>> words_to_syllabify = "γυναικός φῡ́ω καταλλάσσω γγγ ῑ́̔στην Οὐρίου ευιλατευσαι"
 >>> tokens_to_syllabify = tokens(grapheme_clusters(characters(words_to_syllabify)))
